@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bb-api-gateway
+  labels:
+    app: bb-api-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bb-api-gateway
+  template:
+    metadata:
+      labels:
+        app: bb-api-gateway
+    spec:
+      containers:
+        - name: bb-api-gateway-container
+          image: kundanlcb/bb-api-gateway:latest
+          ports:
+            - containerPort: 8087

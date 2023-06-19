@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bb-user-api
+  labels:
+    app: bb-user-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bb-user-api
+  template:
+    metadata:
+      labels:
+        app: bb-user-api
+    spec:
+      containers:
+        - name: bb-user-api-container
+          image: kundanlcb/bb-user-api:latest
+          ports:
+            - containerPort: 8086

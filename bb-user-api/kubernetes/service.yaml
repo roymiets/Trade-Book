@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bb-user-api
+spec:
+  selector:
+    app: bb-user-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8086

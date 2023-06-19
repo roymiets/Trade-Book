@@ -1,0 +1,69 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.0.6'
+	id 'io.spring.dependency-management' version '1.1.0'
+	id 'com.google.cloud.tools.jib' version '3.2.0'
+}
+
+group = 'com.cm'
+version = '0.0.1'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven {
+		url = uri("https://maven.pkg.github.com/kundanlcb/token-utils")
+		credentials {
+			username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
+			password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+		}
+	}
+}
+
+ext {
+	set('springCloudVersion', "2022.0.2")
+}
+
+jib {
+	from {
+		image = 'khipu/openjdk17-alpine'
+	}
+	to {
+		image = 'bb_user_api:1.0.0'
+	}
+}
+dependencies {
+	implementation 'com.cm:token-utils:1.0.1'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
+	implementation 'org.springdoc:springdoc-openapi-security:1.7.0'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.0.4'
+	implementation 'org.springframework.boot:spring-boot-starter-web:3.0.4'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+	implementation 'org.hibernate:hibernate-validator:8.0.0.Final'
+	compileOnly 'org.projectlombok:lombok:1.18.26'
+	runtimeOnly 'mysql:mysql-connector-java:8.0.32'
+	annotationProcessor 'org.projectlombok:lombok:1.18.26'
+	implementation 'org.springframework.boot:spring-boot-starter-security:3.0.4'
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:3.0.4'
+	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+}
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

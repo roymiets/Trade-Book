@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bb-equity-api
+  labels:
+    app: bb-equity-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bb-equity-api
+  template:
+    metadata:
+      labels:
+        app: bb-equity-api
+    spec:
+      containers:
+        - name: bb-equity-api-container
+          image: kundanlcb/bb-equity-api:latest
+          ports:
+            - containerPort: 8088

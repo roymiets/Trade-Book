@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bb-feed-api
+  labels:
+    app: bb-feed-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bb-feed-api
+  template:
+    metadata:
+      labels:
+        app: bb-feed-api
+    spec:
+      containers:
+        - name: bb-feed-api-container
+          image: kundanlcb/bb-feed-api:latest
+          ports:
+            - containerPort: 8083

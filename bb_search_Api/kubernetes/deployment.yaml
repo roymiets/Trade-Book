@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bb-search-api
+  labels:
+    app: bb-search-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bb-search-api
+  template:
+    metadata:
+      labels:
+        app: bb-search-api
+    spec:
+      containers:
+        - name: bb-search-api-container
+          image: kundanlcb/bb-search-api:latest
+          ports:
+            - containerPort: 8089

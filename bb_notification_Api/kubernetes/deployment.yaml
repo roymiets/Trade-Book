@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bb-notification-api
+  labels:
+    app: bb-notification-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bb-notification-api
+  template:
+    metadata:
+      labels:
+        app: bb-notification-api
+    spec:
+      containers:
+        - name: bb-notification-api-container
+          image: kundanlcb/bb-notification-app:latest
+          ports:
+            - containerPort: 8082

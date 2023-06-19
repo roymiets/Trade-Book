@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bb-equity-api
+spec:
+  selector:
+    app: bb-equity-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8088

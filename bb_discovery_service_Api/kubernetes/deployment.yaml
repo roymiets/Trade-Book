@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bb-discovery-service-api
+  labels:
+    app: bb-discovery-service-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bb-discovery-service-api
+  template:
+    metadata:
+      labels:
+        app: bb-discovery-service-api
+    spec:
+      containers:
+        - name: bb-discovery-service-api-container
+          image: kundanlcb/bb-discovery-service-api:latest
+          ports:
+            - containerPort: 8761
